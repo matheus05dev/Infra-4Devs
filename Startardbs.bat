@@ -5,21 +5,11 @@ echo       INICIADOR DE STACK - INFRA
 echo ==========================================
 
 :: --- VERIFICAÇÃO DO DOCKER (isolada) ---
-echo Verificando se o motor do Docker esta ativo...
-docker info >nul 2>&1
+call :check_docker
 if %errorlevel% neq 0 (
-    echo [AVISO] Docker Desktop esta desligado.
-    echo Tentando iniciar o servico automaticamente...
-    start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe"
-    echo Aguardando o Docker Engine subir...
-    echo (Isso pode levar alguns segundos dependendo do seu PC)
-    :_wait_docker
-    timeout /t 3 >nul
-    docker info >nul 2>&1
-    if %errorlevel% neq 0 (
-        echo . . . ainda carregando . . .
-        goto _wait_docker
-    )
+    echo [ERRO] Falha ao iniciar Docker.
+    pause
+    exit /b 1
 )
 echo [OK] Docker Engine pronto!
 :: --- Profiles (variaveis) ---
@@ -59,6 +49,7 @@ goto :task_%opt% 2>nul || (
 )
 
 :task_1
+    call :check_docker
     docker compose %PROFILES_ALL% up -d
     call :wait_postgres
     if %errorlevel% neq 0 (set "FAIL_POSTGRES=1" & goto :finalizar)
@@ -71,24 +62,28 @@ goto :task_%opt% 2>nul || (
     goto :finalizar
 
 :task_2
+    call :check_docker
     docker compose %PROFILE_PG% up -d
     call :wait_postgres
     if %errorlevel% neq 0 (set "FAIL_POSTGRES=1" & goto :finalizar)
     goto :finalizar
 
 :task_3
+    call :check_docker
     docker compose %PROFILE_MY% up -d
     call :wait_mysql
     if %errorlevel% neq 0 (set "FAIL_MYSQL=1" & goto :finalizar)
     goto :finalizar
 
 :task_4
+    call :check_docker
     docker compose %PROFILE_MO% up -d
     call :wait_mongo
     if %errorlevel% neq 0 (set "FAIL_MONGO=1" & goto :finalizar)
     goto :finalizar
 
 :task_5
+    call :check_docker
     docker compose %PROFILE_REDIS% up -d
     call :wait_redis
     if %errorlevel% neq 0 (set "FAIL_REDIS=1" & goto :finalizar)
@@ -154,22 +149,38 @@ exit /b 0
 :check_docker
 echo Verificando se o motor do Docker esta ativo...
 docker info >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [AVISO] Docker Desktop esta desligado.
-    echo Tentando iniciar o servico automaticamente...
-    start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe"
-    echo Aguardando o Docker Engine subir...
-    echo (Isso pode levar alguns segundos dependendo do seu PC)
-    :_wait_docker
-    timeout /t 3 >nul
-    docker info >nul 2>&1
-    if %errorlevel% neq 0 (
-        echo . . . ainda carregando . . .
-        goto _wait_docker
-    )
+if %errorlevel%==0 (
+    echo [OK] Docker Engine pronto!
+    goto :eof
 )
-echo [OK] Docker Engine pronto!
-goto :eof
+
+echo [AVISO] Docker Desktop esta desligado.
+echo Tentando iniciar o servico automaticamente...
+start "" /MIN "C:\Program Files\Docker\Docker\Docker Desktop.exe"
+echo Aguardando o Docker Engine subir...
+echo (Isso pode levar alguns segundos dependendo do seu PC)
+
+setlocal enabledelayedexpansion
+set /a __docker_tries=0
+
+:_wait_docker_check
+timeout /t 15 >nul
+docker info >nul 2>&1
+if %errorlevel%==0 (
+    endlocal
+    echo [OK] Docker Engine pronto!
+    goto :eof
+)
+
+set /a __docker_tries+=1
+if !__docker_tries! geq 10 (
+    echo [ERRO] Docker Engine nao subiu apos !__docker_tries! tentativas.
+    endlocal
+    exit /b 1
+)
+
+echo . . . ainda carregando (tentativa !__docker_tries!/10) . . .
+goto _wait_docker_check
 
 :: ----------------------
 :: Labels de espera (retornam com goto :eof)
