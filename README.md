@@ -367,7 +367,9 @@ Infra/
 
 ## 💡Motivo do projeto
 
-Criado para facilitar o desenvolvimento e evitar instalação de múltiplos SGBDs localmente.
+Evitar instalações manuais repetitivas de bancos de dados, configuração de drivers e desperdício de espaço no sistema.
+
+O Infra-dev ajuda a subir, gerenciar e remover bancos via Docker de forma rápida e descartável, mantendo o ambiente limpo e produtivo.
 
 ---
 
