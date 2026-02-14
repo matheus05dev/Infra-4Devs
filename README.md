@@ -19,6 +19,7 @@
 ✅ **Leve** - Limites de RAM otimizados para desenvolvimento  
 ✅ **Backup fácil** - Scripts automatizados inclusos  
 ✅ **Multi-projeto** - Bancos separados por perfil (Docker Profiles)
+
 ✅ **Configuração pronta para devs** - Ambiente de desenvolvimento pré-configurado para evitar que desenvolvedores precisem instalar drivers ou criar seus próprios `docker-compose`; inicie bancos rapidamente com scripts ou profiles prontos.
 
 ---
