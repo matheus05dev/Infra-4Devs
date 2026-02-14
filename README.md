@@ -371,6 +371,6 @@ Criado para facilitar o desenvolvimento e evitar instalação de múltiplos SGBD
 
 ---
 
-**Desenvolvido com ☕ por [Matheus Nunes](https://github.com/matheus05dev)**
+**Desenvolvido com ☕ por [Matheus Nunes da Silva](https://github.com/matheus05dev)**
 
 ⭐ Se este projeto te ajudou, considere dar uma estrela no GitHub!
