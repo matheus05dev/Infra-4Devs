@@ -6,7 +6,6 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![Redis](https://img.shields.io/badge/Redis-D82C20?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
 
 ---
 
@@ -46,7 +45,7 @@ Startardbs.bat
 **Opção B - Via Docker Compose:**
 ```bash
 # Todos os bancos
-docker compose --profile pg --profile my --profile mo --profile redis up -d
+docker compose --profile pg --profile my --profile mo up -d
 
 # Apenas PostgreSQL
 docker compose --profile pg up -d
@@ -56,9 +55,6 @@ docker compose --profile my up -d
 
 # Apenas MongoDB
 docker compose --profile mo up -d
-
-# Apenas Redis
-docker compose --profile redis up -d
 ```
 
 ### 3. Conecte no DataGrip/DBeaver
@@ -73,7 +69,6 @@ Veja a seção [Conexões](#-conectar-nos-bancos) abaixo.
 | **PostgreSQL** | 5432 | `postgres` | `admin` | `pg` |
 | **MySQL** | 3306 | `root` | `admin` | `my` |
 | **MongoDB** | 27017 | *(sem auth)* | - | `mo` |
-| **Redis** | 6379 | *(sem auth)* | - | `redis` |
 
 ---
 
@@ -165,24 +160,6 @@ docker exec -it mongo_dev mongosh
 
 ---
 
-### 🧭 Redis
-
-**Cliente (DataGrip/DBeaver ou outro):**
-```
-Host:     localhost
-Port:     6379
-Database: (use conforme cliente)
-User:     (não aplicável)
-Password: (não aplicável)
-```
-
-**Linha de comando:**
-```bash
-docker exec -it redis_dev redis-cli
-```
-
----
-
 ## ⚙️ Configurações
 
 ### Alterar senhas
@@ -224,9 +201,8 @@ Os containers têm limites de RAM configurados:
 | PostgreSQL | 64MB | 128MB |
 | MySQL | 128MB | 256MB |
 | MongoDB | 128MB | 300MB |
-| Redis | 64MB | 64MB |
 
-**Total:** ~756MB máximo (estimado)
+**Total:** ~684MB máximo
 
 Para ajustar, edite `docker-compose.yml`:
 ```yaml
@@ -343,6 +319,11 @@ Infra/
 > 
 > Faça backup manual dos arquivos importantes para local seguro.
 
+### 🌐 Repositório Público
+
+> Este repositório é para uso pessoal seu
+> 
+> **as senhas são padrões**
 
 ---
 
@@ -355,5 +336,3 @@ Criado para facilitar o desenvolvimento e evitar instalação de múltiplos SGBD
 **Desenvolvido com ☕ por [Matheus Nunes](https://github.com/matheus05dev)**
 
 ⭐ Se este projeto te ajudou, considere dar uma estrela no GitHub!
-
----
