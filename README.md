@@ -35,7 +35,7 @@
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/matheus05dev/Infra.git
+git clone https://github.com/matheus05dev/Infra-dev.git
 cd Infra
 ```
 
@@ -367,10 +367,12 @@ Infra/
 
 ## 💡Motivo do projeto
 
-Criado para facilitar o desenvolvimento e evitar instalação de múltiplos SGBDs localmente.
+Evitar instalações manuais repetitivas de bancos de dados, configuração de drivers e desperdício de espaço no sistema.
+
+O Infra-dev ajuda a subir, gerenciar e remover bancos via Docker de forma rápida e descartável, mantendo o ambiente limpo e produtivo.
 
 ---
 
-**Desenvolvido com ☕ por [Matheus Nunes](https://github.com/matheus05dev)**
+**Desenvolvido com ☕ por [Matheus Nunes da Silva](https://github.com/matheus05dev)**
 
 ⭐ Se este projeto te ajudou, considere dar uma estrela no GitHub!
