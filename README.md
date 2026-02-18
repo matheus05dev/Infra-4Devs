@@ -1,4 +1,4 @@
-# 🐳 Infra 4Dev - Docker Database Stack
+# 🐳 Infra 4Devs - Docker Database Stack
 
 > Stack completa de bancos de dados para desenvolvimento local usando Docker - PostgreSQL, MySQL e MongoDB prontos para uso com DataGrip/DBeaver.
 
